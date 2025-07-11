@@ -11,7 +11,7 @@ using namespace std;
 #define endl '\n'
 
 const int MOD = 1e9 + 7;
-const int INF = 1e18;
+const int INF = -1e18;
 
 #ifdef LOCAL_DEBUG
 #define debug(x) cerr << #x << " = " << x << endl
@@ -19,41 +19,51 @@ const int INF = 1e18;
 #define debug(x) 
 #endif
 
-int cal(string s){
-    int score=0;
-    vector<bool>found(5,false);
-    vector<bool>visited(s.length(),false);
-    for(int i=0;i<s.length();i++){
-        if(!found[1]){
-            if(s[i]=='n');
-        }else if(!found[2]){
-
-        }else if(!found[3]){
-            
-        }else if(!found[4]){
-            
-        }else if(!found[5]){
-            
-        }else{
-
-        }
-
-    }
-}
-
 void solve(){
     int n,m;
     cin>>n>>m;
-    vector<string>q(n);
-    for(auto &i:q)cin>>i;
-    int score=0;
-    string s="";
+
+    vector<int>dp(5,INF);
+    dp[0]=0;
+
+    string tar="narek";
+
     for(int i=0;i<n;i++){
-        s=q[i];
-        for(int j=i+1;j<n;j++){
-            s+=q[j];
+        string s;
+        cin>>s;
+
+        vector<int>nextdp=dp;
+        int cost=0;
+        for(auto c:s)if(c=='n'||c=='a'||c=='r'||c=='e'||c=='k')cost++;
+
+        for(int start=0;start<5;start++){
+            if(dp[start]==INF)continue;
+
+            int cur=start;
+            int comp=0;
+
+            for(auto c:s){
+                if(c==tar[cur])cur++;
+                if(cur==5)cur=0,comp++;
+            }
+
+            int end=cur;
+
+            int change=10*comp-cost;
+            int newscore=dp[start]+change;
+
+            nextdp[end]=max(newscore,nextdp[end]);
+
+            
         }
+        dp=nextdp;
+
     }
+
+    int maxscore=0;
+    for(auto i:dp)maxscore=max(maxscore,i);
+    cout<<maxscore<<endl;
+
 }
 
 signed main(){
