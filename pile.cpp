@@ -22,26 +22,19 @@ const int INF = 1e18;
 void solve(){
     int n;
     cin>>n;
-    vector<int>p(n),s(n);
-    for(auto &i:p)cin>>i;
-    for(auto &i:s)cin>>i;
-
-    bool ans=true;
-
-    if(p[n-1]!=s[0])ans=false;
-
-    for(int i=1;i<n;i++){
-        if(gcd(p[i-1],p[i])!=p[i])ans=false;
+    int ans=0;
+    for(int i=0;i<n;i++){
+        int a,b,c,d;
+        cin>>a>>b>>c>>d;
+        if(b>d){
+            ans+=a+(b-d);
+        }else{
+            if(a>c){
+                ans+=(a-c);
+            }
+        }
     }
-    for(int i=n-1;i>0;i--){
-        if(gcd(s[i],s[i-1])!=s[i-1])ans=false;
-    }
-
-    for(int i=0;i<n-1;i++){
-        if(gcd(p[i],s[i+1])!=p[n-1])ans=false;
-    }
-
-    cout<<(ans?"YES\n":"NO\n");
+    cout<<ans<<endl;
 }
 
 signed main(){

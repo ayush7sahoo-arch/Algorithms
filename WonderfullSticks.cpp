@@ -22,28 +22,24 @@ const int INF = 1e18;
 void solve(){
     int n;
     cin>>n;
-    vector<int>p(n),s(n);
-    for(auto &i:p)cin>>i;
-    for(auto &i:s)cin>>i;
+    string s;
+    cin>>s;
 
-    bool ans=true;
 
-    if(p[n-1]!=s[0])ans=false;
-
-    for(int i=1;i<n;i++){
-        if(gcd(p[i-1],p[i])!=p[i])ans=false;
-    }
+    int c=n;
+    vector<int>ans(n);
     for(int i=n-1;i>0;i--){
-        if(gcd(s[i],s[i-1])!=s[i-1])ans=false;
+        if(s[i-1]=='>')ans[i]=c--;
     }
-
-    for(int i=0;i<n-1;i++){
-        if(gcd(p[i],s[i+1])!=p[n-1])ans=false;
+    c=1;
+    for(int i=n-1;i>0;i--){
+        if(s[i-1]=='<')ans[i]=c++;
     }
-
-    cout<<(ans?"YES\n":"NO\n");
+    ans[0]=c;
+    
+    for(auto i:ans)cout<<i<<" ";
+    cout<<endl;
 }
-
 signed main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);

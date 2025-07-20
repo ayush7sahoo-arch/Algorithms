@@ -20,28 +20,29 @@ const int INF = 1e18;
 #endif
 
 void solve(){
-    int n;
-    cin>>n;
-    vector<int>p(n),s(n);
-    for(auto &i:p)cin>>i;
-    for(auto &i:s)cin>>i;
+    int n,k;
+    cin>>n>>k;
+    vector<int>l(n);
+    vector<int>r(n);
+    for(auto&i:l)cin>>i;
+    for(auto&i:r)cin>>i;
+    vector<int>maxa(n);
+    vector<int>mina(n);
+    int ans=0;
 
-    bool ans=true;
+    for(int i=0;i<n;i++){
+        maxa[i]=max(l[i],r[i]);
+        ans+=maxa[i];
+        mina[i]=min(l[i],r[i]);
 
-    if(p[n-1]!=s[0])ans=false;
-
-    for(int i=1;i<n;i++){
-        if(gcd(p[i-1],p[i])!=p[i])ans=false;
     }
-    for(int i=n-1;i>0;i--){
-        if(gcd(s[i],s[i-1])!=s[i-1])ans=false;
+    sort(all(mina));
+    for(int i=0;i<k-1;i++){
+        ans+=mina[n-1-i];
     }
+    
+    cout<<ans+1<<endl;
 
-    for(int i=0;i<n-1;i++){
-        if(gcd(p[i],s[i+1])!=p[n-1])ans=false;
-    }
-
-    cout<<(ans?"YES\n":"NO\n");
 }
 
 signed main(){
