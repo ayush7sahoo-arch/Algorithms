@@ -19,26 +19,27 @@ const int INF = 1e18;
 #define debug(x) 
 #endif
 
-void subset(vector<int>a,int k,int n){
-    if(k==n){
-        //print
-        for(auto i:a){
-            cout<<i<<" ";
-        }
-        cout<<endl;
-    }else{
-        //exclude k
-        subset(a,k+1,n);
-        //include k
-        a.pb(k);
-        subset(a,k+1,n);
-        // a.pop_back();
-    }
-}
-
 void solve(){
-    vector<int>a;
-    subset(a,0ll,3ll);
+    int n;
+    cin>>n;
+    vector<int>a(n);
+    for(auto&i:a)cin>>i;
+    int mx=*max_element(all(a));
+    sort(all(a));
+    vector<pair<int,int>>c;
+    for(int i=0;i<n;i++){
+        if(c.empty())c.pb(mp(a[i],1));
+        else{
+            if(c.back().F==a[i])c.back().S++;
+            else c.pb(mp(a[i],1));
+        }
+    }
+    for(int i=c.size()-1;i>=0;i--){
+        if(c[i].S%2){
+            cout<<"YES\n";return;
+        }
+    }
+    cout<<"NO\n";
 }
 
 signed main(){
@@ -47,11 +48,10 @@ signed main(){
     cout.tie(NULL);
 
     int t = 1;
-    // cin >> t;
+    cin >> t;
     while(t--){
         solve();
     }
-
 
     return 0;
 }

@@ -19,26 +19,26 @@ const int INF = 1e18;
 #define debug(x) 
 #endif
 
-void subset(vector<int>a,int k,int n){
-    if(k==n){
-        //print
-        for(auto i:a){
-            cout<<i<<" ";
-        }
-        cout<<endl;
-    }else{
-        //exclude k
-        subset(a,k+1,n);
-        //include k
-        a.pb(k);
-        subset(a,k+1,n);
-        // a.pop_back();
-    }
-}
-
 void solve(){
-    vector<int>a;
-    subset(a,0ll,3ll);
+    int x,y;
+    cin>>x>>y;
+    if(x==y && x!=0){
+        cout<<-1<<endl;
+    }else{
+        int ans=0;
+        while((x+ans+y+ans)!=(x+ans)^(y+ans)){
+            int mask=1;
+            // int i=0;
+            while(!((x+ans)&mask && (y+ans)&mask)){
+                mask=mask<<1;
+            }
+            // mask=mask>>1;
+            // x+=mask;
+            // y+=mask;
+            ans+=mask;
+        }
+        cout<<ans<<endl;
+    }
 }
 
 signed main(){
@@ -47,11 +47,10 @@ signed main(){
     cout.tie(NULL);
 
     int t = 1;
-    // cin >> t;
+    cin >> t;
     while(t--){
         solve();
     }
-
 
     return 0;
 }
